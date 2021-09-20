@@ -13,4 +13,4 @@ while True:
     time.sleep(1)
     drive.tank(0)
     time.sleep(1)
-    drive.tank(-1)
+    drive.tank(0.5)
