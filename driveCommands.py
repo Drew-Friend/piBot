@@ -4,8 +4,8 @@ from adafruit_motorkit import MotorKit
 class DriveTrain:
     def __innit__(self):
         kit = MotorKit(0x40)
-        m1 = self.kit.motor1
-        m2 = self.kit.motor2
+        self.m1 = self.kit.motor1
+        self.m2 = self.kit.motor2
 
     def arcade(self, x, y):
         pass
