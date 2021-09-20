@@ -22,3 +22,4 @@ while True:
             power = -1
         else:
             power = 1
+    print(power)
