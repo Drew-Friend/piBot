@@ -11,10 +11,10 @@ prevPos = True
 while True:
     drive.tank(power)
     time.sleep(0.5)
-    if power > 0:
+    if power <= 0.1:
         power -= 0.1
         prevPos = True
-    elif power < 0:
+    elif power >= -0.1:
         power += 0.1
         prevPos = False
     else:
