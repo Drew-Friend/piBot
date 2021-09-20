@@ -6,11 +6,11 @@ import driveCommands
 
 drive = driveCommands.DriveTrain()
 
+power = 1.0
 while True:
-    drive.tank(0)
-    time.sleep(1)
-    drive.tank(1)
-    time.sleep(1)
-    drive.tank(0)
-    time.sleep(1)
-    drive.tank(0.5)
+    drive.tank(power)
+    time.sleep(0.5)
+    if power > -0.9:
+        power -= 0.1
+    else:
+        power = 1
