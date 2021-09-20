@@ -7,10 +7,18 @@ import driveCommands
 drive = driveCommands.DriveTrain()
 
 power = 1.0
+prevPos = True
 while True:
     drive.tank(power)
     time.sleep(0.5)
-    if power > -0.9:
+    if power > 0:
         power -= 0.1
+        prevPos = True
+    elif power < 0:
+        power += 0.1
+        prevPos = False
     else:
-        power = 1
+        if prevPos:
+            power = -1
+        else:
+            power = 1
