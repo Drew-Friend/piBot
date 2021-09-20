@@ -2,7 +2,9 @@
 # Eventually going to need the board and digitalIO imports to connect to LEDs and relays
 # Probably an import needed to read bluetooth signals
 import time
-from driveCommands import DriveTrain as drive
+from driveCommands import DriveTrain
+
+drive = DriveTrain()
 
 while True:
     drive.tank(0)
