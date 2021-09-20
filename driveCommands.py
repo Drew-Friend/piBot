@@ -2,7 +2,7 @@ from adafruit_motorkit import MotorKit
 
 
 class DriveTrain:
-    def __innit__(self):
+    def __init__(self):
         self.kit = MotorKit(0x40)
         self.m1 = self.kit.motor1
         self.m2 = self.kit.motor2
