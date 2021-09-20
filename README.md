@@ -1,2 +1,7 @@
 # piBot
-rPi robot, lots of commits because it's the only way to update code over ssh
+Requirements:
+  https://gallaugher.com/makersnack-installing-circuitpython-on-a-raspberry-pi/
+  circuitPython
+  i2c enabled
+  adafruit-circuitpython-motorkit library(with alterations)
+  
