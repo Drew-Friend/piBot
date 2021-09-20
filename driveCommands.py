@@ -6,6 +6,7 @@ class DriveTrain:
         self.kit = MotorKit(0x40)
         self.m1 = self.kit.motor1
         self.m2 = self.kit.motor2
+        print("innited")
 
     def arcade(self, x, y):
         pass
