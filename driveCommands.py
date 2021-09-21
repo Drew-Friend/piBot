@@ -16,8 +16,8 @@ class DriveTrain:
         self.indiv(power, power)
 
     def arcade(self, power, turnval):
-        p1 = power + turnval
-        p2 = power - turnval
+        p1 = power + 0.5 * turnval
+        p2 = power - 0.5 * turnval
         if p1 > 1:
             p1 = 1
         elif p1 < -1:

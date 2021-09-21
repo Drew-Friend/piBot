@@ -14,3 +14,5 @@ Requirements:
     Adafruit blinka library
 
     pybluez library
+
+    cwiid library
