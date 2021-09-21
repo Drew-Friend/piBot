@@ -1,5 +1,6 @@
 import bluetooth
 
+# This is all fake, I'm gonna use a wiimote!!!!!
 target_name = "Not not a robot"
 target_address = None
 
