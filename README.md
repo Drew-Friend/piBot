@@ -9,8 +9,6 @@ Requirements:
   
     adafruit-circuitpython-motorkit library(with alterations)
     
-    board library
-    
     neopixel library
     
     Adafruit blinka library
