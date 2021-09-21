@@ -1,11 +1,16 @@
 # piBot
-## Requirements:
+Requirements:
 
-  https://gallaugher.com/makersnack-installing-circuitpython-on-a-raspberry-pi/
+    https://gallaugher.com/makersnack-installing-circuitpython-on-a-raspberry-pi/
   
-  circuitPython
+    circuitPython
   
-  i2c enabled
+    i2c enabled
   
-  adafruit-circuitpython-motorkit library(with alterations)
-  
+    adafruit-circuitpython-motorkit library(with alterations)
+    
+    board library
+    
+    neopixel library
+    
+    Adafruit blinka library
