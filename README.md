@@ -14,3 +14,5 @@ Requirements:
     neopixel library
     
     Adafruit blinka library
+
+    pybluez library
