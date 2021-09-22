@@ -1,11 +1,13 @@
-# We're going to want to bring in my led code from summerSensorSensation
-# Eventually going to need the board and digitalIO imports to connect to LEDs and relays
+# Python imports and my classes
 import time
-import driveCommands
-import controller
+import board
+from subsystems import driveCommands, controller, leds, relays
 
-remote = controller.wiiMote()
+# Instantiate the subsystems used on the robot
 drive = driveCommands.DriveTrain()
+remote = controller.wiiMote()
+backLight = leds.Strand(board.D21, 15)
+spinner = relays.Pair(board.D6, board.D13)
 
 power = 1.0
 # Connected will be used to shut off the robot if it loses connection, instead of running on the last command received
@@ -17,8 +19,10 @@ while connected:
         power = -1
     else:
         power = power * 0.5
+
+    spinner.toggle()
     drive.tank(power)
-    print(power)
+    backLight.bounce()
     time.sleep(1)
 
 drive.tank(0)
