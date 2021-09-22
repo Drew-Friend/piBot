@@ -8,19 +8,17 @@ remote = controller.wiiMote()
 drive = driveCommands.DriveTrain()
 
 power = 1.0
-prevPos = True
-while True:
-    drive.tank(power)
-    time.sleep(0.5)
-    if power >= 0.1:
-        power -= 0.1
-        prevPos = True
-    elif power <= -0.1:
-        power += 0.1
-        prevPos = False
+# Connected will be used to shut off the robot if it loses connection, instead of running on the last command received
+connected = True
+while connected:
+    if power < 0 and power > -0.15:
+        power = 1
+    elif power > 0 and power < 0.15:
+        power = -1
     else:
-        if prevPos:
-            power = -1
-        else:
-            power = 1
+        power = power * 0.5
+    drive.tank(power)
     print(power)
+    time.sleep(1)
+
+drive.tank(0)
