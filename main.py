@@ -5,7 +5,8 @@ from subsystems import driveCommands, controller, leds, relays
 
 # Instantiate the subsystems used on the robot
 drive = driveCommands.DriveTrain()
-controls = controller.wiiMote()
+# controls = controller.wiiMote()
+controls = controller.debugTerminal()
 backLight = leds.Strand(board.D21, 15)
 spinner = relays.Pair(board.D6, board.D13)
 spinnerPrev = False
@@ -24,11 +25,17 @@ def periodic():
     if boostPrev and not controls.b:
         boostPrev = False
 
-    if controls.two and not spinnerPrev:
+    if controls.a and not spinnerPrev:
         spinner.toggle()
         spinnerPrev = True
-    if spinnerPrev and not controls.two:
+    if spinnerPrev and not controls.a:
         spinnerPrev = False
+
+    print(
+        "Motor 1: {}, Motor 2: {}, Spinner: {}".f(
+            drive.m1, drive.m2, spinner.motor2.port.value
+        )
+    )
 
 
 connected = False

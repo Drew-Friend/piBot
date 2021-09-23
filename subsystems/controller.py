@@ -1,5 +1,3 @@
-import cwiid
-
 # wm = None
 # i=2
 # while not wm:
@@ -16,52 +14,56 @@ import cwiid
 
 class wiiMote:
     def __init__(self):
+        import cwiid
+
         self.wii = cwiid.Wiimote()
         self.wii.rpt_mode = cwiid.RPT_BTN | cwiid.RPT_ACC
         self.buttons = self.wii.state["buttons"]
         self.accel = self.wii.state["acc"]
-        self.one = False
-        self.two = False
+        # consistent Buttons
+        self.x = False
+        self.y = False
         self.a = False
         self.b = False
+        self.turn = 0
+        self.throttle = 0
+
+        # wii specific
         self.up = False
         self.down = False
         self.right = False
         self.left = False
-        self.right = False
         self.minus = False
         self.plus = False
         self.home = False
         self.wii.led = 1
         self.vibing = False
-        self.turn
-        self.throttle
 
     def readOutput(self):
         self.accel = self.wii.state["acc"]
         self.buttons = self.wii.state["buttons"]
         if self.buttons:
-            if cwiid.BTN_LEFT:
+            if self.wii.BTN_LEFT:
                 self.left = True
-            if cwiid.BTN_RIGHT:
+            if self.wii.BTN_RIGHT:
                 self.right = True
-            if cwiid.BTN_UP:
+            if self.wii.BTN_UP:
                 self.up = True
-            if cwiid.BTN_DOWN:
+            if self.wii.BTN_DOWN:
                 self.down = True
-            if cwiid.BTN_1:
-                self.one = True
-            if cwiid.BTN_2:
-                self.two = True
-            if cwiid.BTN_A:
+            if self.wii.BTN_1:
+                self.x = True
+            if self.wii.BTN_2:
+                self.y = True
+            if self.wii.BTN_A:
                 self.a = True
-            if cwiid.BTN_B:
+            if self.wii.BTN_B:
                 self.b = True
-            if cwiid.BTN_MINUS:
+            if self.wii.BTN_MINUS:
                 self.minus = True
-            if cwiid.BTN_PLUS:
+            if self.wii.BTN_PLUS:
                 self.plus = True
-            if cwiid.BTN_HOME:
+            if self.wii.BTN_HOME:
                 self.home = True
 
     def cycle_leds(self):
@@ -77,3 +79,35 @@ class wiiMote:
     def vibrate_toggle(self):
         self.vibing = not self.vibing
         self.wii.rumble = self.vibing
+
+
+class debugTerminal:
+    def __init__(self):
+        import serial
+
+        self.serialPort = serial.Serial("/dev/rfcomm1", baudrate=9600)
+        serial.flushOutput()
+        serial.flushInput()
+
+        self.two = False
+        self.x = False
+        self.y = False
+        self.a = False
+        self.b = False
+        self.turn = 0
+        self.throttle = 0
+
+    def readOutput(self):
+        self.serialPort.flushOutput()
+        out = self.serialPort.readline().decode()
+        print(out)
+        # print(serial.readline().decode())
+        if out == "b":
+            self.b = not self.b
+            self.serialPort.flushInput()
+        if out == "a":
+            self.a = not self.a
+            self.serialPort.flushInput()
+        elif out != "":
+            self.throttle = float(out)
+            self.serialPort.flushInput()
