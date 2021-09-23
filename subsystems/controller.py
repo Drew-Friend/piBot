@@ -34,6 +34,8 @@ class wiiMote:
         self.home = False
         self.wii.led = 1
         self.vibing = False
+        self.turn
+        self.throttle
 
     def readOutput(self):
         self.accel = self.wii.state["acc"]

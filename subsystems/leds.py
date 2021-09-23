@@ -18,16 +18,13 @@ class Strand:
         self.leds = neopixel.NeoPixel(pin, self.qty)
         self.bounceI = 0
         self.forward = True
+        self.begun = False
 
-    # sets up the message to run in binary
-    def messageSetup(self, message):
-        global digits
-        res = "".join(format(ord(i), "b") for i in message)
-        for i in res:
-            self.digits.append(i)
-
-    # actually runs the binary message
-    def message(self, colorA, colorB):
+    # Runs the binary message in the colors specified
+    def message(self, colorA, colorB, message):
+        if not self.begun:
+            self.messageSetup(message)
+            self.begun = True
         for i in range(self.qty):
             if self.digits[i] == 0:
                 self.leds[i] = colorA
@@ -37,24 +34,16 @@ class Strand:
         self.leds.show()
 
     # Rotates between 2 colors
-    def rotate(self):
-        global rotateCheck
+    def rotate(self, colorA, colorB, length, section):
+        if not self.begun:
+            self.rotateSetup(colorA, colorB, length, section)
+            self.begun = True
         self.leds[self.qty - 1] = self.leds[0]
         for i in range(self.qty - 1):
-            # print(leds[i + 1])
             self.leds[i] = self.leds[i + 1]
             self.leds.show()
 
-    def rotateSetup(self, colorA, colorB, length, section):
-        global primary
-        for i in range(length):
-            if i % section == 0:
-                primary = not primary
-            if primary:
-                self.leds[i - self.rotateCheck] = colorA
-            else:
-                self.leds[i - self.rotateCheck] = colorB
-
+    # Think Wiimote trying to connect. LED bounces between the endpoints
     def bounce(self):
         bounceColor = (0, 100, 255)
         self.leds[self.bounceI] = (0, 0, 0)
@@ -69,13 +58,14 @@ class Strand:
     # GAY!! fun pretty estop code
     def rainbow_cycle(self, wait):
         while True:
-            global qty
             for j in range(255):
                 for i in range(self.qty):
                     pixel_index = (i * 256 // self.qty) + j
                     self.leds[i] = self.wheel(pixel_index & 255)
                 self.leds.show()
                 time.sleep(wait)
+
+    # Helper Functions:
 
     # Wheel is used by the rainbow to...rainbow
     def wheel(self, pos):
@@ -96,3 +86,19 @@ class Strand:
             g = int(pos * 3)
             b = int(255 - pos * 3)
         return (r, g, b)
+
+    # sets up the message to run in binary
+    def messageSetup(self, message):
+        res = "".join(format(ord(i), "b") for i in message)
+        for i in res:
+            self.digits.append(i)
+
+    # Sets all initial endpoints, small issue if length has a remainder of sections
+    def rotateSetup(self, colorA, colorB, length, section):
+        for i in range(length):
+            if i % section == 0:
+                self.primary = not self.primary
+            if self.primary:
+                self.leds[i - self.rotateCheck] = colorA
+            else:
+                self.leds[i - self.rotateCheck] = colorB

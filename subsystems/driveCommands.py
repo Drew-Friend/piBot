@@ -6,11 +6,12 @@ class DriveTrain:
         self.kit = MotorKit(0x40)
         self.m1 = self.kit.motor1
         self.m2 = self.kit.motor2
+        self.booster = 0.5
         print("innited")
 
     def indiv(self, p1, p2):
-        self.m1.throttle = p1
-        self.m2.throttle = p2
+        self.m1.throttle = p1 * self.booster
+        self.m2.throttle = p2 * self.booster
 
     def tank(self, power):
         self.indiv(power, power)
@@ -27,3 +28,12 @@ class DriveTrain:
         elif p2 < -1:
             p2 = -1
         self.indiv(p1, p2)
+
+    def off(self):
+        self.indiv(0, 0)
+
+    def toggle_SUPER_ULTRA_MEGA_GOD_MODE(self):
+        if self.booster < 1:
+            self.booster = 1
+        else:
+            self.booster = 0.5
