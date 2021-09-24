@@ -49,6 +49,8 @@ class Strand:
         self.leds[self.bounceI] = (0, 0, 0)
         if self.bounceI == self.qty - 1 or self.bounceI == 0:
             self.forward = not self.forward
+        print(self.bounceI)
+        print(self.forward)
         if self.forward:
             self.bounceI += 1
         else:
