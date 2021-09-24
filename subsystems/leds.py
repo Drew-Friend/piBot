@@ -47,13 +47,14 @@ class Strand:
     def bounce(self):
         bounceColor = (0, 100, 255)
         self.leds[self.bounceI] = (0, 0, 0)
-        if self.bounceI == self.qty or self.bounceI == 0:
+        if self.bounceI == self.qty - 1 or self.bounceI == 0:
             self.forward = not self.forward
         if self.forward:
             self.bounceI += 1
         else:
             self.bounceI -= 1
         self.leds[self.bounceI] = bounceColor
+        self.leds.show()
 
     # GAY!! fun pretty estop code
     def rainbow_cycle(self, wait):
