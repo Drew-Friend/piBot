@@ -111,3 +111,17 @@ class debugTerminal:
         elif out != "":
             self.throttle = float(out)
             self.serialPort.flushInput()
+
+
+class emptyTester:
+    def __init__(self):
+        self.two = False
+        self.x = False
+        self.y = False
+        self.a = False
+        self.b = False
+        self.turn = 0
+        self.throttle = 0
+
+    def readOutput(self):
+        pass

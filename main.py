@@ -5,8 +5,7 @@ from subsystems import driveCommands, controller, leds, relays
 
 # Instantiate the subsystems used on the robot
 drive = driveCommands.DriveTrain()
-# controls = controller.wiiMote()
-controls = controller.debugTerminal()
+controls = controller.emptyTester()
 backLight = leds.Strand(board.D21, 15)
 spinner = relays.Pair(board.D6, board.D13)
 spinnerPrev = False
