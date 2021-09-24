@@ -2,7 +2,7 @@ import board
 from digitalio import DigitalInOut
 
 # 6, 13, 19, 26
-class Relay:
+class Standard:
     """Valid ports are board.D6, board.D13, board.D19, board.D26"""
 
     def __init__(self, port):
@@ -23,8 +23,8 @@ class Pair:
     """Valid ports are board.D6, board.D13, board.D19, board.D26"""
 
     def __init__(self, port1, port2):
-        self.motor1 = Relay(port1)
-        self.motor2 = Relay(port2)
+        self.motor1 = Standard(port1)
+        self.motor2 = Standard(port2)
 
     def on(self):
         self.motor1.on()
@@ -39,3 +39,23 @@ class Pair:
             self.off()
         else:
             self.on()
+
+
+class Reversible:
+    def __init__(self, port1, port2):
+        self.port1 = DigitalInOut(port1)
+        self.port2 = DigitalInOut(port2)
+        self.port1.switch_to_output(value=False)
+        self.port2.switch_to_output(value=False)
+
+    def forward(self):
+        self.port1.value = True
+        self.port2.value = False
+
+    def reverse(self):
+        self.port2.value = True
+        self.port1.value = False
+
+    def off(self):
+        self.port2.value = False
+        self.port1.value = False

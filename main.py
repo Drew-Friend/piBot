@@ -4,7 +4,7 @@ import board
 from subsystems import driveCommands, controller, leds, relays
 
 # Instantiate the subsystems used on the robot
-drive = driveCommands.DriveTrain()
+drive = driveCommands.analogDrive()
 controls = controller.emptyTester()
 backLight = leds.Strand(board.D21, 15)
 spinner = relays.Pair(board.D6, board.D13)

@@ -1,0 +1,11 @@
+This robot is gonna be very cool and fun, because the 12v and hats allow for much better control of the robot. 
+However, I think a simpler robot running on 5v could also be an interesting project. These are the changes that would be made:
+    * 5v means power is a lot easier to deal with
+        You could use a phone charger with a micro usb cable that connects directly to the power project
+    * Digital driving
+    * 5v makes relays irrelevant
+        You could add the motors directly to the pi using either standard or reversible relays
+    * Bluetooth control should be able to stay the same. 
+So, in this version of the robot, the entire electronic system consists of a pi, a battery pack, and motors. 
+There would be no need for a blackbox, as everything could be run through pwm style cables
+Could be a fun project to try and create a compact robot working off of this system

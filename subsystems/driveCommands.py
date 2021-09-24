@@ -1,13 +1,11 @@
-from adafruit_motorkit import MotorKit
-
-
-class DriveTrain:
+class analogDrive:
     def __init__(self):
+        from adafruit_motorkit import MotorKit
+
         self.kit = MotorKit(0x40)
         self.m1 = self.kit.motor1
         self.m2 = self.kit.motor2
         self.booster = 0.5
-        print("innited")
 
     def indiv(self, p1, p2):
         self.m1.throttle = p1 * self.booster
@@ -37,3 +35,39 @@ class DriveTrain:
             self.booster = 1
         else:
             self.booster = 0.5
+
+
+class digitalDrive:
+    def __init__(self):
+        import board
+        import relays
+
+        self.left = relays.Reversible(board.D0, board.D0)
+        self.right = relays.Reversible(board.D0, board.D0)
+
+    def indiv(self, p1, p2):
+        if p1 < 0:
+            self.left.reverse()
+        elif p1 == 0:
+            self.left.off()
+        else:
+            self.left.forward()
+
+        if p2 < 0:
+            self.right.reverse()
+        elif p2 == 0:
+            self.right.off()
+        else:
+            self.right.forward()
+
+    def tank(self, power):
+        self.indiv(power, power)
+
+    def arcade(self, driveVal, turnVal):
+        """1 for forward and right, 0 for none, -1 for backward and left"""
+        pL = driveVal - turnVal
+        pR = driveVal + turnVal
+        self.indiv(pL, pR)
+
+    def off(self):
+        self.indiv(0, 0)
