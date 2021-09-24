@@ -15,6 +15,10 @@ boostPrev = False
 def periodic():
     global spinnerPrev
     global boostPrev
+    try:
+        controls.readOutput()
+    except:
+        return False
     controls.readOutput()
     drive.arcade(controls.throttle, controls.turn)
 
@@ -35,6 +39,7 @@ def periodic():
             drive.m1, drive.m2, spinner.motor2.port.value
         )
     )
+    return True
 
 
 connected = False
@@ -53,4 +58,4 @@ while True:
         backLight.rotate()
         # For loop makes it so LEDs don't update on every loop, so the animation is slower
         for i in range(10):
-            periodic()
+            connected = periodic()
