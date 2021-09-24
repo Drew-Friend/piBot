@@ -6,7 +6,7 @@ class Relay:
     """Valid ports are board.D6, board.D13, board.D19, board.D26"""
 
     def __init__(self, port):
-        self.port = port
+        self.port = DigitalInOut(port)
         self.port.switch_to_output(value=False)
 
     def on(self):
