@@ -17,30 +17,27 @@ connected = False
 def periodic():
     global spinnerPrev
     global boostPrev
-    try:
+    if bt.sock.isConnected:
         controls.readOutput()
-    except:
-        bt.sock = None
-        return None
 
-    if controls.b and not boostPrev:
-        drive.toggle_SUPER_ULTRA_MEGA_GOD_MODE()
-        boostPrev = True
-    if boostPrev and not controls.b:
-        boostPrev = False
+        if controls.b and not boostPrev:
+            drive.toggle_SUPER_ULTRA_MEGA_GOD_MODE()
+            boostPrev = True
+        if boostPrev and not controls.b:
+            boostPrev = False
 
-    if controls.a and not spinnerPrev:
-        spinner.toggle()
-        spinnerPrev = True
-    if spinnerPrev and not controls.a:
-        spinnerPrev = False
+        if controls.a and not spinnerPrev:
+            spinner.toggle()
+            spinnerPrev = True
+        if spinnerPrev and not controls.a:
+            spinnerPrev = False
 
-    drive.arcade(controls.throttle, controls.turn)
-    print(
-        "Motor 1: {}, Motor 2: {}, Spinner: {}".f(
-            drive.m1, drive.m2, spinner.motor2.port.value
+        drive.arcade(controls.throttle, controls.turn)
+        print(
+            "Motor 1: {}, Motor 2: {}, Spinner: {}".f(
+                drive.m1, drive.m2, spinner.motor2.port.value
+            )
         )
-    )
 
 
 # Loop after everything has been initialized

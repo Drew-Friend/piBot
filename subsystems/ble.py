@@ -4,21 +4,31 @@ import bluetooth
 class btComm:
     def __init__(self, addr="00:00:00:00:00:00"):
         self.addr = addr
-        self.sock = None
+        self.sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
 
+    # def scan(self):
+    #     nearby_devices = bluetooth.discover_devices()
+    #     target_address = None
+    #     for bdaddr in nearby_devices:
+    #         if self.addr == bdaddr:
+    #             target_address = bdaddr
+    #             break
     def scan(self):
-        nearby_devices = bluetooth.discover_devices()
-        target_address = None
-        port = 1
-        for bdaddr in nearby_devices:
-            if self.addr == bdaddr:
-                target_address = bdaddr
-                break
-
-        if target_address is not None:
-            self.sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
-            self.sock.connect((target_address, port))
-            self.sock.send("\x1A")
+        print("Scanning for bluetooth devices:")
+        devices = bluetooth.discover_devices(lookup_names=True, lookup_class=True)
+        number_of_devices = len(devices)
+        print(number_of_devices, "devices found")
+        for addr, name, device_class in devices:
+            print("\n")
+            print("Device:")
+            print("Device Name: %s" % (name))
+            print("Device MAC Address: %s" % (addr))
+            print("Device Class: %s" % (device_class))
+            print("\n")
+            if addr == self.addr:
+                self.sock.connect((self.addr, self.port))
+                self.sock.send("\x1A")
+                print("Connected to %s" % (name))
 
     def read(self):
         return self.sock.getOutputStream()
