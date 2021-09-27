@@ -33,6 +33,13 @@ class btComm:
     def read(self):
         return self.sock.getOutputStream()
 
+    def isConnected(self):
+        try:
+            self.sock.getpeername()
+            return True
+        except:
+            return False
+
 
 # Bluetooth stuff
 # bd_addr = “20:13:05:30:01:14”

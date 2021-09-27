@@ -17,7 +17,7 @@ connected = False
 def periodic():
     global spinnerPrev
     global boostPrev
-    if bt.sock.isConnected:
+    if bt.isConnected():
         controls.readOutput()
 
         if controls.b and not boostPrev:
@@ -44,7 +44,7 @@ def periodic():
 while True:
     drive.off()
     spinner.off()
-    while not bt.sock.isConnected():
+    while not bt.isConnected():
         backLight.bounce()
         bt.scan()
 
