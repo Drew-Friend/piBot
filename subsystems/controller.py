@@ -13,7 +13,7 @@
 
 
 class wiiMote:
-    def __init__(self):
+    def __init__(self, socket):
         import cwiid
 
         self.wii = cwiid.Wiimote()
@@ -82,7 +82,7 @@ class wiiMote:
 
 
 class debugTerminal:
-    def __init__(self):
+    def __init__(self, socket):
         import serial
 
         self.serialPort = serial.Serial("/dev/rfcomm1", baudrate=9600)
@@ -114,7 +114,7 @@ class debugTerminal:
 
 
 class emptyTester:
-    def __init__(self):
+    def __init__(self, socket):
         self.two = False
         self.x = False
         self.y = False

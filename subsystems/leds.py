@@ -19,45 +19,54 @@ class Strand:
         self.bounceI = 0
         self.forward = True
         self.begun = False
+        self.ani = 0
+        self.mod = 10
 
     # Runs the binary message in the colors specified
     def message(self, colorA, colorB, message):
         if not self.begun:
             self.messageSetup(message)
             self.begun = True
-        for i in range(self.qty):
-            if self.digits[i] == 0:
-                self.leds[i] = colorA
-            if self.digits[i] == 1:
-                self.leds[i] = colorB
-        digits = self.digits[1:] + self.digits[:1]
-        self.leds.show()
+        self.ani += 1
+        if self.ani % self.mod == 0:
+            self.ani = 0
+            for i in range(self.qty):
+                if self.digits[i] == 0:
+                    self.leds[i] = colorA
+                if self.digits[i] == 1:
+                    self.leds[i] = colorB
+            self.digits = self.digits[1:] + self.digits[:1]
+            self.leds.show()
 
     # Rotates between 2 colors
     def rotate(self, colorA, colorB, length, section):
         if not self.begun:
             self.rotateSetup(colorA, colorB, length, section)
             self.begun = True
-        self.leds[self.qty - 1] = self.leds[0]
-        for i in range(self.qty - 1):
-            self.leds[i] = self.leds[i + 1]
-            self.leds.show()
+        self.ani += 1
+        if self.ani % self.mod == 0:
+            self.ani = 0
+            self.leds[self.qty - 1] = self.leds[0]
+            for i in range(self.qty - 1):
+                self.leds[i] = self.leds[i + 1]
+                self.leds.show()
 
     # Think Wiimote trying to connect. LED bounces between the endpoints
     def bounce(self):
         bounceColor = (0, 100, 255)
-        self.leds[self.bounceI] = (0, 0, 0)
 
-        print(self.bounceI)
-        print(self.forward)
-        if self.forward:
-            self.bounceI += 1
-        else:
-            self.bounceI -= 1
-        if self.bounceI == self.qty - 1 or self.bounceI == 0:
-            self.forward = not self.forward
-        self.leds[self.bounceI] = bounceColor
-        self.leds.show()
+        self.ani += 1
+        if self.ani % self.mod == 0:
+            self.ani = 0
+            self.leds[self.bounceI] = (0, 0, 0)
+            if self.forward:
+                self.bounceI += 1
+            else:
+                self.bounceI -= 1
+            if self.bounceI == self.qty - 1 or self.bounceI == 0:
+                self.forward = not self.forward
+            self.leds[self.bounceI] = bounceColor
+            self.leds.show()
 
     # GAY!! fun pretty estop code
     def rainbow_cycle(self, wait):

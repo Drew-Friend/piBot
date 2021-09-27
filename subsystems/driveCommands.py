@@ -1,8 +1,8 @@
 class analogDrive:
-    def __init__(self):
+    def __init__(self, add=0x40):
         from adafruit_motorkit import MotorKit
 
-        self.kit = MotorKit(0x40)
+        self.kit = MotorKit(add)
         self.m1 = self.kit.motor1
         self.m2 = self.kit.motor2
         self.booster = 0.5
@@ -38,12 +38,12 @@ class analogDrive:
 
 
 class digitalDrive:
-    def __init__(self):
+    def __init__(self, l1, l2, r1, r2):
         import board
         import relays
 
-        self.left = relays.Reversible(board.D0, board.D0)
-        self.right = relays.Reversible(board.D0, board.D0)
+        self.left = relays.Reversible(l1, l2)
+        self.right = relays.Reversible(r1, r2)
 
     def indiv(self, p1, p2):
         if p1 < 0:
