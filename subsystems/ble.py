@@ -8,7 +8,6 @@ class btComm:
 
     def scan(self):
         nearby_devices = bluetooth.discover_devices()
-        target_address = None
         for bdaddr in nearby_devices:
             if self.addr == bdaddr:
                 print(bdaddr)

@@ -5,7 +5,7 @@ from subsystems import driveCommands, ble, controller, leds, relays
 
 # Instantiate the subsystems used on the robot
 drive = driveCommands.analogDrive(0x40)
-bt = ble.btComm("00:00:00:00:00:00")
+bt = ble.btComm("C8:D7:B0:AF:F3:4F")
 controls = controller.emptyTester(bt.sock)
 backLight = leds.Strand(board.D21, 15)
 spinner = relays.Pair(board.D6, board.D13)
@@ -46,6 +46,7 @@ while True:
     spinner.off()
     while not bt.isConnected():
         backLight.bounce()
+        print("scanning...")
         bt.scan()
 
     backLight.rotate()
