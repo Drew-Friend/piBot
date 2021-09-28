@@ -9,8 +9,8 @@ class btComm:
     def scan(self):
         nearby_devices = bluetooth.discover_devices()
         for bdaddr in nearby_devices:
+            print(bdaddr)
             if self.addr == bdaddr:
-                print(bdaddr)
                 self.sock.connect((self.addr, self.port))
                 self.sock.send("\x1A")
                 print("Connected to %s" % (bdaddr))
