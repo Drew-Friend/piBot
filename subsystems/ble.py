@@ -12,9 +12,12 @@ class btComm:
         for bdaddr in nearby_devices:
             print(bdaddr)
             if self.addr == bdaddr:
-                self.sock.connect((self.addr, self.port))
-                self.sock.send("\x1A")
-                print("Connected to %s" % (bdaddr))
+                try:
+                    self.sock.connect((self.addr, self.port))
+                    self.sock.send("\x1A")
+                    print("Connected to %s" % (bdaddr))
+                except:
+                    print("Couldn't connect to s" % (bdaddr))
                 break
 
     # def scan(self):
