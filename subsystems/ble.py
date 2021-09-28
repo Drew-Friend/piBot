@@ -2,9 +2,10 @@ import bluetooth
 
 
 class btComm:
-    def __init__(self, addr="00:00:00:00:00:00"):
+    def __init__(self, addr="00:00:00:00:00:00", port=1):
         self.addr = addr
         self.sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+        self.port = port
 
     def scan(self):
         nearby_devices = bluetooth.discover_devices()
