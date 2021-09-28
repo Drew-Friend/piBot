@@ -17,7 +17,7 @@ class btComm:
                     self.sock.send("\x1A")
                     print("Connected to %s" % (bdaddr))
                 except:
-                    print("Couldn't connect to s" % (bdaddr))
+                    print("Couldn't connect to %s" % (bdaddr))
                 break
 
     # def scan(self):
