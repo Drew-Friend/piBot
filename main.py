@@ -33,6 +33,7 @@ def periodic():
             spinnerPrev = False
 
         drive.arcade(controls.throttle, controls.turn)
+        backLight.rotate((100, 0, 255), (0, 0, 255), 5)
         print(
             "Motor 1: {}, Motor 2: {}, Spinner: {}".f(
                 drive.m1, drive.m2, spinner.motor2.port.value
@@ -49,5 +50,4 @@ while True:
         print("scanning...")
         bt.scan()
 
-    backLight.rotate()
     periodic()

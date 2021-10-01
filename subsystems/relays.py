@@ -3,7 +3,7 @@ from digitalio import DigitalInOut
 
 # 6, 13, 19, 26
 class Standard:
-    """Valid ports are board.D6, board.D13, board.D19, board.D26"""
+    """Valid ports if using HAT are board.D6, board.D13, board.D19, board.D26"""
 
     def __init__(self, port):
         self.port = DigitalInOut(port)
@@ -20,7 +20,7 @@ class Standard:
 
 
 class Pair:
-    """Valid ports are board.D6, board.D13, board.D19, board.D26"""
+    """Creates a pair of relayus that are controlled together. Valid ports if using HAT are board.D6, board.D13, board.D19, board.D26"""
 
     def __init__(self, port1, port2):
         self.motor1 = Standard(port1)
@@ -42,6 +42,8 @@ class Pair:
 
 
 class Reversible:
+    """Used for motors where both leads are on GPIO pins and can be run in either direction"""
+
     def __init__(self, port1, port2):
         self.port1 = DigitalInOut(port1)
         self.port2 = DigitalInOut(port2)

@@ -22,8 +22,8 @@ class Strand:
         self.ani = 0
         self.mod = 10
 
-    # Runs the binary message in the colors specified
     def message(self, colorA, colorB, message):
+        """Runs the binary message in the colors specified"""
         if not self.begun:
             self.messageSetup(message)
             self.begun = True
@@ -38,10 +38,10 @@ class Strand:
             self.digits = self.digits[1:] + self.digits[:1]
             self.leds.show()
 
-    # Rotates between 2 colors
-    def rotate(self, colorA, colorB, length, section):
+    def rotate(self, colorA, colorB, section):
+        """Rotates between 2 colors, with the specified section length"""
         if not self.begun:
-            self.rotateSetup(colorA, colorB, length, section)
+            self.rotateSetup(colorA, colorB, section)
             self.begun = True
         self.ani += 1
         if self.ani % self.mod == 0:
@@ -51,13 +51,11 @@ class Strand:
                 self.leds[i] = self.leds[i + 1]
                 self.leds.show()
 
-    # Think Wiimote trying to connect. LED bounces between the endpoints
     def bounce(self):
+        """Think Wiimote trying to connect. LED bounces between the endpoints"""
+        # Because this code disrupts the normal pattern, I want to reinit when it switches back
+        self.begun = False
         bounceColor = (0, 100, 255)
-
-        # self.ani += 1
-        # if self.ani % self.mod == 0:
-        #     self.ani = 0
         self.leds[self.bounceI] = (0, 0, 0)
         if self.forward:
             self.bounceI += 1
@@ -68,8 +66,8 @@ class Strand:
         self.leds[self.bounceI] = bounceColor
         self.leds.show()
 
-    # GAY!! fun pretty estop code
     def rainbow_cycle(self, wait):
+        """Rainbow cycle code, runs a while true loop, so be careful"""
         while True:
             for j in range(255):
                 for i in range(self.qty):
@@ -79,7 +77,6 @@ class Strand:
                 time.sleep(wait)
 
     # Helper Functions:
-
     # Wheel is used by the rainbow to...rainbow
     def wheel(self, pos):
         if pos < 0 or pos > 255:
@@ -107,8 +104,8 @@ class Strand:
             self.digits.append(i)
 
     # Sets all initial endpoints, small issue if length has a remainder of sections
-    def rotateSetup(self, colorA, colorB, length, section):
-        for i in range(length):
+    def rotateSetup(self, colorA, colorB, section):
+        for i in range(self.qty):
             if i % section == 0:
                 self.primary = not self.primary
             if self.primary:

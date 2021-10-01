@@ -2,12 +2,15 @@ import bluetooth
 
 
 class btComm:
+    """Uses bluetooth ports to connect to controller"""
+
     def __init__(self, addr="00:00:00:00:00:00", port=1):
         self.addr = addr
         self.sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
         self.port = port
 
     def scan(self):
+        """Scans all nearby devices for the address given on init"""
         nearby_devices = bluetooth.discover_devices()
         for bdaddr in nearby_devices:
             print(bdaddr)
@@ -38,9 +41,11 @@ class btComm:
     #             print("Connected to %s" % (name))
 
     def read(self):
+        """Read output of the socket"""
         return self.sock.getOutputStream()
 
     def isConnected(self):
+        """Returns true if connected, and false if not connected"""
         try:
             self.sock.getpeername()
             return True

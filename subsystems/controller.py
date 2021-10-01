@@ -13,6 +13,8 @@
 
 
 class wiiMote:
+    """Uses Wii Remote as control. Based on outdated cwiid library, I'll have to make my own"""
+
     def __init__(self, socket):
         import cwiid
 
@@ -40,6 +42,7 @@ class wiiMote:
         self.vibing = False
 
     def readOutput(self):
+        """Reads all buttons and other inputs from Wii Remote"""
         self.accel = self.wii.state["acc"]
         self.buttons = self.wii.state["buttons"]
         if self.buttons:
@@ -67,6 +70,7 @@ class wiiMote:
                 self.home = True
 
     def cycle_leds(self):
+        """Makes remote LEDs cycle though 1, 0, 3, and 8 in binary"""
         if self.wii.led == 1:
             self.wii.led = 0
         elif self.wii.led == 0:
@@ -77,11 +81,14 @@ class wiiMote:
             self.wii.led = 1
 
     def vibrate_toggle(self):
+        """Turns the rumble of the remote on or off"""
         self.vibing = not self.vibing
         self.wii.rumble = self.vibing
 
 
 class debugTerminal:
+    """In theory this checks the serial port, but I haven't gotten it working yet"""
+
     def __init__(self, socket):
         import serial
 
@@ -114,6 +121,8 @@ class debugTerminal:
 
 
 class emptyTester:
+    """Completey empty shell to use for tests without connection"""
+
     def __init__(self, socket):
         self.two = False
         self.x = False

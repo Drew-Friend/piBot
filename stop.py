@@ -1,5 +1,5 @@
-import driveCommands
+from subsystems import driveCommands
 
-drive = driveCommands.DriveTrain()
+drive = driveCommands.analogDrive()
 
 drive.tank(0)
