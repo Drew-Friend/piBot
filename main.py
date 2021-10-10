@@ -56,6 +56,7 @@ def test():
         backLight.animate((100, 0, 255), (0, 0, 255), "rotate")
         power = -1 * power
         drive.tank(power)
+        time.sleep(0.5)
 
 
 # Loop after everything has been initialized
