@@ -45,11 +45,11 @@ def test():
     testR1 = relays.Standard(board.D19)
     testR1.on()
     testR2 = relays.Standard(board.D26)
-    iter = 0
+    iter = 1
     power = 0.75
     while True:
-        if iter % 5 == 0:
-            iter = 0
+        if iter % 6 == 0:
+            iter = 1
             spinner.toggle()
         testR1.toggle()
         testR2.toggle()
