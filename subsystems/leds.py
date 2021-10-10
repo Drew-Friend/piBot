@@ -10,6 +10,7 @@ class Strand:
         self.bounceI = 0
         self.forward = True
         # General
+        self.section = 4
         self.qty = self.section - (num % self.section) + num
         self.leds = neopixel.NeoPixel(pin, self.qty)
         self.begun = False
@@ -32,11 +33,11 @@ class Strand:
         self.leds[self.bounceI] = bounceColor
         self.leds.show()
 
-    def animate(self, A=(0, 0, 0), B=(0, 0, 0), type="", message="", section=4):
+    def animate(self, A=(0, 0, 0), B=(0, 0, 0), type="", message=""):
         """Valid types are "rotate" and "message", defaults to rainbow code if not given anything else."""
         if not self.begun:
             if type == "rotate":
-                self.rotateSetup(A, B, section)
+                self.rotateSetup(A, B)
             elif type == "message":
                 self.messageSetup(A, B, message)
             else:
@@ -63,13 +64,13 @@ class Strand:
                 else:
                     self.valList.append(colorB)
 
-    # List of hex codes, alternating with the chosen section length
-    def rotateSetup(self, colorA, colorB, secLen):
+    # List of hex codes, alternating with a section length of 4
+    def rotateSetup(self, colorA, colorB):
         self.valList.clear
         primary = True
         # Make sure the string has all equal sections
         for i in range(self.qty):
-            if i % secLen == 0:
+            if i % self.section == 0:
                 primary = not primary
             if primary:
                 self.valList.append(colorA)
