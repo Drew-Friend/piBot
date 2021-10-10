@@ -41,10 +41,29 @@ def periodic():
         )
 
 
+def test():
+    testR1 = relays.Standard(board.D19)
+    testR1.on()
+    testR2 = relays.Standard(board.D26)
+    iter = 0
+    power = 0.75
+    while True:
+        if iter % 5 == 0:
+            iter = 0
+            spinner.toggle()
+        testR1.toggle()
+        testR2.toggle()
+        backLight.animate((100, 0, 255), (0, 0, 255), "rotate", section=5)
+        power = -1 * power
+        drive.tank(power)
+
+
 # Loop after everything has been initialized
 while True:
     drive.off()
     spinner.off()
+    # Comment out the test line if actually running the robot
+    test()
     while not bt.isConnected():
         backLight.bounce()
         print("scanning...")
