@@ -48,6 +48,7 @@ def test():
     iter = 1
     power = 0.75
     while True:
+        iter += 1
         if iter % 6 == 0:
             iter = 1
             spinner.toggle()
